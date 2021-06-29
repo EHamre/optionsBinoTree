@@ -9,6 +9,7 @@ How each parameter should be parsed.
 ### `direc`
 Directory for Excel output as string.  
 e.g., `'Users/username/Desktop'`  
+!NB! This will look different for windows and linux users.  
 Default: `None` → will select working directory.
 
 ### `folname`
