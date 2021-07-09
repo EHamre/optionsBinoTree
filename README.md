@@ -106,6 +106,8 @@ see [udfunc specification](docs/parameters.md#udfunc).
 - `headerformat`
 - `rounding`
 - `makedfs`
+- `portfolios`
+- `showIntrinsic`
 
 ***
 
@@ -125,44 +127,120 @@ parsNormal = dict(fname = 'NormalTree',
                   spot = 100, strike = 95, 
                   dt = 1/12, periods = 3, 
                   vola = 0.20, r = 0.05, 
+                  showIntrinsic = True, # True is default
                   dtfreq = 'm', rounding = 4)  
 
-binoNormal = binomialTrees(params = parsNormal, showIntrinsic = True, periods = 4)
+binoNormal = binomialTrees(params = parsNormal)
 ```
 
+### Tree preview
+The binomial tree for the European Call is accessed by `binoNormal.ecTree`  
+![dfDemo](docs/images/dfTreeDemo.png)  
+
+### Callable tree
+In case your binomial tree is big and won't print neatly you can access each node by 
+calling the tree object with `up` and `down` passed:
+![treeCall](docs/images/treeCall.png)
+
+### `write()` method
+typing `binoNormal.write()` in the console an Excel file will be generated. Either in the
+current working directory, or passed directory through the `dir` parameter.  
+The location of the file should be printed.  
+```python
+binoNormal.write(fname_override = 'NEW_FILENAME',
+                 width = "{your file window width}", height = "{file window height}")
+```
+`File was made at: {your directory here}/NEW_FILENAME.xlsx`  
+![excelDemo](docs/images/excelDemo.png)
+
 ***
+
+## Plotting methods
+The plotting methods can take in keywords to alter the original parameters
+
+### `binoNormal.ecPlotDeltas()`  
+![deltaPlot](docs/images/deltaPlotDemo.png)  
+
+\
+Changing periods for plot to make it smoother:
+### `binoNormal.ecPlotDeltas(periods = 30)`  
+![deltaPeriodsPlot](docs/images/deltaPlotPeriodsDemo.png)  
+
+### `binoNormal.ecPlotPrice()`  
+![pricePlot](docs/images/pricePlotDemo.png)
+
+\
+Changing strike for plot:
+### `binoNormal.ecPlotPrice(strike = 40)`  
+![priceStrikePlot](docs/images/pricePlotStrikeDemo.png)  
+
+### `binoNormal.ecPlotPeriods()`  
+![periodsPlot](docs/images/periodsPlotDemo.png)  
+
+### `binoNormal.plotSpots()`  
+![spotsPlot](docs/images/spotsPlotDemo.png)  
+
+\
+Changing number of periods in tree (with `T` remaining the same)
+### `binoNormal.plotSpots(periods = 30)`  
+![spotsPlot30](docs/images/spotsPlot30Demo.png)
+
+***
+
+## Replicating `portfolios`
+The program calculates option prices in each node through risk-neutral pricing, 
+then calculates the replicating portfolios after (it was faster that way).  
+Any difference between the risk-neutral pricing result, and the replicating portfolio pricing should
+only be due to rounding errors.  
+
+Setting the `portoflios` parameter to `True` will include the replicating portfolios as
+separate sheets in the Excel file. (This will slow down excecution, especially if `periods` is high)
+
+```python
+binoNormal = binomialTrees(params = parsNormal, 
+                           rounding = 2,
+                           portfolios = True, 
+                           write = True # setting write to True makes an Excel file from construction
+                           )
+```  
+![treeCall](docs/images/excelPortDemo.png)  
+**! The errors are to be fixed !** 
+
+***
+
+# Discrete dividends
+Discrete dividends can be passed through the `discdiv` parameter:  
+```python
+discdiv = [(1/12, 2)]
+```
 
 ## F tree
 For discrete dividends, the F solution will be the default as it is faster than nonrec:
 
 ```python
-parsF = dict(fname = 'Fsol',
-             spot = 41, strike = 40,
-             dt = 4/12, periods = 3,
-             vola = 0.20, r = 0.08,
-             showIntrinsic = True, write = True, dtfreq = 'm',
-             discdiv = [(4/12, 5), (8/12, 5)])
+parsF = dict(fname = 'Ftree', 
+             spot = 50, strike = 50, 
+             dt = 1/12, periods = 3, 
+             vola = 0.30, r = 0.03, 
+             dtfreq = 'm')
 
-binoF = binomialTrees(params = parsF)
+binoF = binomialTrees(params = parsF, discdiv = [(1/12, 2)])
 ```
 
 ***
 
 ## Non-recombining tree
-For discrete dividends -> non-recombining tree.
-Can specify which options to make through the `maketrees` parameter.
+For discrete dividends -> non-recombining tree.  
+Obtained by passing `nonrec` as `True`
 
 ```python
-pars = dict(direc = '/Users/EspenHamre/Desktop',
-            fname = 'NonRec',
-            spot = 100, strike = 95,
-            vola=0.20, r = 0.03,
-            dt = 1/12, periods = 3,
-            dtfreq = 'm', headerformat = 'dt', showIntrinsic = False,
-            discdiv = [(1/12, 2)],
-            nonrec = True, makedfs = False, maketrees = ['ec', 'ep'])
+parsNonrec = dict(fname = 'nonrecTree',  
+                  spot = 50, strike = 50,  
+                  dt = 1/12, periods = 3,  
+                  vola = 0.30, r = 0.03,  
+                  dtfreq = 'm')
 
-binoNonrec = binomialTrees(params = pars, test = True)
+binoNonrec = binomialTrees(params = parsNonrec, discdiv = [(1/12, 2)], nonrec = True)
 ```
 
 ***
@@ -180,19 +258,20 @@ are needed, it would be more efficient to specify which types to make.
 *As periods becomes large (i.e., dt becomes small), the rounding parameter needs to be 
 sufficiently large to avoid miscalculation.*
 ```python
-parsNormal = dict(fname = 'NormalTree', 
-                      spot = 100, strike = 95, 
-                      dt = 1/12, periods = 3, 
-                      vola = 0.20, r = 0.05, 
-                      dtfreq = 'm', rounding = 8)  
+pars = dict(fname = 'myTree', 
+            spot = 50, strike = 50, 
+            dt = 1/12, periods = 3, 
+            vola = 0.30, r = 0.03, 
+            dtfreq = 'm', rounding = 8)
 
-binoNormal = binomialTrees(params = parsNormal, maketrees = ['ec', 'ep'])
+binoNormal = binomialTrees(params = pars, maketrees = ['ec', 'ep'])
 
 ec_ep_50periods = binoNormal(['ecOptionPrice', 'epOptionPrice'], periods = 50)  
 ```
-
-    >> ec_ep_50periods  
-    {'ecOptionPrice': 7.71749875, 'epOptionPrice': 1.5373898}
+```python
+ec_ep_50periods = {'ecOptionPrice': 3.15373942, 
+                   'epOptionPrice': 2.78014216}
+```  
 
 Returns the european call and put price with all parameters remaining the same, 
 except periods being 50.  
