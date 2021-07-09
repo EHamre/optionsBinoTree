@@ -9,7 +9,6 @@ How each parameter should be parsed.
 ### `direc`
 Directory for Excel output as string.  
 e.g., `'Users/username/Desktop'`  
-!NB! This will look different for windows and linux users.  
 Default: `None` → will select working directory.
 
 ### `folname`
@@ -97,8 +96,12 @@ Up factor for each node movement up, e.g., `1.10`
 ### `d`
 Down factor for each node movement down, e.g., `0.90`
 
+### Default up/down calculation  
+![uFormula](images/uFormula.png)
+![uFormula](images/dFormula.png)
+
 ### udfunc  
-`udfunc` can be passed to specify a custom function for calculating up/down movements.  
+`udfunc` can be passed to specify a custom function for calculating up/down movements.
 Function must have `**kwargs`.  
 All parameters must/should be specified as keyword arguments to avoid complications.
 
@@ -117,13 +120,15 @@ All parameters must/should be specified as keyword arguments to avoid complicati
 
 #### Example
 ```python
-def udfunc(r, divyield, dt, vola, **kwargs):
+def udfuncNEW(r, divyield, dt, vola, **kwargs):
     import numpy as np
     
     u = np.exp((r-divyield)*dt + vola*np.sqrt(dt))
     d = np.exp((r-divyield)*dt - vola*np.sqrt(dt))
     
     return u, d
+
+bino_Custom_udfunc = binomialTrees(params = pars, udfunc = udfuncNEW)
 ```
 
 ***
@@ -148,6 +153,16 @@ Boolean which determines if tree is collapsed.
 If `True` → no empty cells between nodes.  
 Default: `False`
 
+### `showIntrinsic`
+Boolean which determines whether to display instrinsic value or not.  
+Default: `True`
+
+### `portfolios`
+Boolean which determines if replicating portfolios are added
+excel output.  
+If `True` → no empty cells between nodes.  
+Default: `False`
+
 ### `write`
 Boolean which determines if excel output written directly from construction.  
 Default: `False`
@@ -160,6 +175,11 @@ String which determines if header is formated in terms of periods or
 ### `rounding`
 Integer specifying rounding for decimals, e.g., `rounding = 4`  
 Default: `2`
+
+### `portfolios`
+Boolean specifying whether replicating portfolios are to be written,  
+`True` or `False`  
+Default: `False`
 
 ***
 
