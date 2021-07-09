@@ -203,7 +203,7 @@ binoNormal = binomialTrees(params = parsNormal,
                            write = True # setting write to True makes an Excel file from construction
                            )
 ```  
-![treeCall](docs/images/excelPortDemo.png)  
+![excelPort](docs/images/excelPortDemo.png)  
 **! The errors are to be fixed !** 
 
 ***
@@ -241,7 +241,10 @@ parsNonrec = dict(fname = 'nonrecTree',
                   dtfreq = 'm')
 
 binoNonrec = binomialTrees(params = parsNonrec, discdiv = [(1/12, 2)], nonrec = True)
+
+binoNonrec.write()
 ```
+![nonrecExcel](docs/images/nonrecExcelDemo.png)  
 
 ***
 
