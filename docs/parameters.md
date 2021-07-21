@@ -97,8 +97,8 @@ Up factor for each node movement up, e.g., `1.10`
 Down factor for each node movement down, e.g., `0.90`
 
 ### Default up/down calculation  
-![uFormula](images/uFormula.png)
-![uFormula](images/dFormula.png)
+<img src="https://raw.githubusercontent.com/EHamre/optionsBinoTree/main/docs/images/uFormula.png" width="50%" height="50%">
+<img src="https://raw.githubusercontent.com/EHamre/optionsBinoTree/main/docs/images/dFormula.png" width="50%" height="50%">
 
 ### udfunc  
 `udfunc` can be passed to specify a custom function for calculating up/down movements.
