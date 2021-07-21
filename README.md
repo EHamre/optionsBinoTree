@@ -136,13 +136,13 @@ binoNormal = binomialTrees(params = parsNormal)
 ### Tree preview
 The binomial tree for the European Call is accessed by `binoNormal.ecTree`  
 ![dfDemo](docs/images/dfTreeDemo.png)  
-<img src="https://raw.githubusercontent.com/EHamre/optionsBinoTree/main/docs/images/dfTreeDemo.png" width="75%" height="75%">
+<img src="https://raw.githubusercontent.com/EHamre/optionsBinoTree/main/docs/images/dfTreeDemo.png" width="65%" height="65%">
 
 ### Callable tree
 In case your binomial tree is big and won't print neatly you can access each node by 
 calling the tree object with `up` and `down` passed:  
 ![treeCall](docs/images/treeCall.png)
-<img src="https://raw.githubusercontent.com/EHamre/optionsBinoTree/main/docs/images/treeCall.png" width="75%" height="75%">
+<img src="https://raw.githubusercontent.com/EHamre/optionsBinoTree/main/docs/images/treeCall.png" width="50%" height="50%">
 
 ### `write()` method
 typing `binoNormal.write()` in the console an Excel file will be generated. Either in the
@@ -150,9 +150,10 @@ current working directory, or passed directory through the `dir` parameter.
 The location of the file should be printed.  
 ```python
 binoNormal.write(fname_override = 'NEW_FILENAME',
-                 width = "{your file window width}", height = "{file window height}")
+                 width = int("{your file window width}"), height = int("{file window height}"))
 ```
 `File was made at: {your directory here}/NEW_FILENAME.xlsx`  
+\
 ![excelDemo](docs/images/excelDemo.png)
 <img src="https://raw.githubusercontent.com/EHamre/optionsBinoTree/main/docs/images/excelDemo.png" width="75%" height="75%">
 
@@ -165,7 +166,7 @@ The plotting methods can take in keywords to alter the original parameters
 **Plotting deltas w.r.t. current spot:**
 ### `binoNormal.ecPlotDeltas()`  
 ![deltaPlot](docs/images/deltaPlotDemo.png)  
-<img src="https://raw.githubusercontent.com/EHamre/optionsBinoTree/main/docs/images/deltaPlotDemo.png" width="75%" height="75%">
+<img src="https://raw.githubusercontent.com/EHamre/optionsBinoTree/main/docs/images/deltaPlotDemo.png" width="65%" height="65%">
 
 
 \
@@ -229,6 +230,7 @@ binoNormal = binomialTrees(params = parsNormal,
                            )
 ```  
 ![excelPort](docs/images/excelPortDemo.png)  
+<img src="https://raw.githubusercontent.com/EHamre/optionsBinoTree/main/docs/images/excelPortDemo.png">  
 **! The errors are to be fixed !** 
 
 ***
@@ -270,6 +272,8 @@ binoNonrec = binomialTrees(params = parsNonrec, discdiv = [(1/12, 2)], nonrec = 
 binoNonrec.write()
 ```
 ![nonrecExcel](docs/images/nonrecExcelDemo.png)  
+<img src="https://raw.githubusercontent.com/EHamre/optionsBinoTree/main/docs/images/nonrecExcelDemo.png" width="85%" height="85%">  
+
 
 ***
 
