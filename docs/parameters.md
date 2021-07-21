@@ -210,7 +210,8 @@ Which time parameters to discard/recalculate when object is called:
 
 - 2 or 3 new  
   - act as normal construction (`__init__`)
-    
+
+***
 
 **Make Dataframes:**  
 If Dataframes are to be made from `__call__`, you must parse 'dfs' in toreturn parameter.
