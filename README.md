@@ -1,6 +1,6 @@
 # Binomial Tree for Options Pricing
 ### Motivation:
-Started as a project for learning in relation to school but turned out as a tool that 
+Started as a project for learning but turned out as a tool that 
 could be useful for more.
 
 ## What does it do?
