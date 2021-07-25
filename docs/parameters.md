@@ -97,8 +97,9 @@ Up factor for each node movement up, e.g., `1.10`
 Down factor for each node movement down, e.g., `0.90`
 
 ### Default up/down calculation  
-<img src="https://raw.githubusercontent.com/EHamre/optionsBinoTree/main/docs/images/uFormula.png" width="40%" height="40%">  
+<img src="https://raw.githubusercontent.com/EHamre/optionsBinoTree/main/docs/images/uFormula.png" width="40%" height="40%">
 <img src="https://raw.githubusercontent.com/EHamre/optionsBinoTree/main/docs/images/dFormula.png" width="40%" height="40%">
+
 
 ### udfunc  
 `udfunc` can be passed to specify a custom function for calculating up/down movements.
@@ -128,7 +129,7 @@ def udfuncNEW(r, divyield, dt, vola, **kwargs):
     
     return u, d
 
-bino_Custom_udfunc = binomialTrees(params = pars, udfunc = udfuncNEW)
+bino_Custom_udfunc = bt.tree(params = pars, udfunc = udfuncNEW)
 ```
 
 ***

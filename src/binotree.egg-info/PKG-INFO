@@ -1,3 +1,19 @@
+Metadata-Version: 2.1
+Name: binotree
+Version: 1.0.0
+Summary: class for creating binomial trees for options pricing
+Home-page: https://github.com/EHamre/optionsBinoTree
+Author: Espen Hamre
+Author-email: devespen@outlook.com
+License: MIT
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+
 # Binomial Tree for Options Pricing
 ### Motivation:
 Started as a project for learning in relation to school but turned out as a tool that 
@@ -23,127 +39,6 @@ Subtracts the present value from current spot, and makes binomial tree based on 
 As the name suggests, the tree does not recombine after dividend payout and calculates
 the option premium as normal (assumes that we can trade just before and after 
 stock goes ex-div)
-
-***
-
-# Installation and import
-### Installation
-The project can be installed from [pip](https://pypi.org/project/binotree/) with the command:  
-`pip install binotree`  
-
-***
-
-## Quickstart
-### Passing arguments
-```python
-import binotree as bt
-
-
-parameters = dict(fname = 'NormalTree', 
-                  spot = 50, strike = 50, 
-                  T = 3/12, dt = 1/12, dtfreq = 'm',
-                  vola = 0.30, r = 0.03)
-
-treeObject = bt.tree(params = parameters)
-```
-
-\
-The class can also take in the parameters directly as keywords:
-```python
-import binotree as bt
-
-
-treeObject = bt.tree(fname = 'NormalTree', 
-                     spot = 50, strike = 50, 
-                     T = 3/12, dt = 1/12, dtfreq = 'm',
-                     vola = 0.30, r = 0.03)
-```
-
-\
-In the case of both a parameters dictionary and keywords, the two will merge, 
-and keywords will override any conflicting parameters:
-```python
-import binotree as bt
-
-
-parameters = dict(fname = 'NormalTree', 
-                  spot = 50, strike = 50, 
-                  T = 3/12, dt = 1/12, dtfreq = 'm',
-                  vola = 0.30, r = 0.03)
-
-treeObject = bt.tree(params = parameters, vola = 0.20)
-```
-(here the vola specification from the dictionary will be replaced with 0.20)
-
-## Access the binomial tree from console
-European call/put and american call/put are all calculated by default 
-(can be changed through the `maketrees` parameter).  
-The *bt.tree* object will store a tree object for each option type calculated.  
-Access the european call tree as such:
-```python
-treeObject.ecTree
-```
-```
-        dt ->      0/12      1/12      2/12      3/12
-         Spot                                  64.834
-  [Intrinsic]                                [14.834]
-    (Premium)                                (14.834)
-                                    59.4555          
-                                   [9.4555]          
-                                   (9.5803)          
-                          54.5232             54.5232
-                         [4.5232]            [4.5232]
-                         (5.8343)            (4.5232)
-                   50.0                50.0          
-                  [0.0]               [0.0]          
-               (3.4209)            (2.2235)          
-                          45.8521             45.8521
-                            [0.0]               [0.0]
-                          (1.093)               (0.0)
-                                    42.0483          
-                                      [0.0]          
-                                      (0.0)          
-                                                38.56
-                                                [0.0]
-                                                (0.0)
-```
-\
-In case your tree is too big for a proper representation in the console, 
-you can access any node you want by calling the tree object:  
-```python
-treeObject.ecTree(up = 1, down = 0)
-```
-```
-{'Spot': 54.5232,
- 'Intrinsic': 4.5232,
- 'Premium': 5.8343,
- 'Delta': 0.7781,
- 'Bond': -36.5877}
-```
-
-## Write to excel file
-Simply call the `write()` method to write to excel file. Pass the `dir` parameter 
-in construction to specify directory 
-(if none is passed, the working directory is used).
-```python
-import binotree as bt
-
-
-parameters = dict(fname = 'NormalTree', 
-                  spot = 50, strike = 50, 
-                  T = 3/12, dt = 1/12, dtfreq = 'm',
-                  vola = 0.30, r = 0.03)
-
-treeObject = bt.tree(params = parameters, dir = 'your/directory/here')
-
-treeObject.write()
-
-# The following print message will show where your file was made:
-# File was made at: 'your/directory/here/NormalTree.xlsx
-```
-The file should look something like this:  
-<img src="https://raw.githubusercontent.com/EHamre/optionsBinoTree/main/docs/images/excelDemo.png" width="75%" height="75%">  
-(each option type is given its own sheet in the excel file)
 
 ***
 
@@ -236,7 +131,7 @@ see [udfunc specification](docs/parameters.md#udfunc).
 ### imports
 
 ```python
-import binotree as bt
+from src.binotree.tree import tree
 ```
 
 ***
@@ -252,7 +147,7 @@ parsNormal = dict(fname = 'NormalTree',
                   showIntrinsic = True, # True is default
                   dtfreq = 'm', rounding = 4)  
 
-binoNormal = bt.tree(params = parsNormal)
+binoNormal = tree(params = parsNormal)
 ```
 
 ### Tree preview
@@ -335,11 +230,11 @@ Setting the `portoflios` parameter to `True` will include the replicating portfo
 separate sheets in the Excel file. (This will slow down excecution, especially if `periods` is high)
 
 ```python
-binoNormal = bt.tree(params = parsNormal, 
-                     rounding = 2, 
-                     portfolios = True,  
-                     write = True # setting write to True makes an Excel file from construction
-                     )
+binoNormal = tree(params = parsNormal, 
+                           rounding = 2,
+                           portfolios = True, 
+                           write = True # setting write to True makes an Excel file from construction
+                           )
 ```  
 <img src="https://raw.githubusercontent.com/EHamre/optionsBinoTree/main/docs/images/excelPortDemo.png">  
 **! The errors are to be fixed !** 
@@ -362,8 +257,7 @@ parsF = dict(fname = 'Ftree',
              vola = 0.30, r = 0.03, 
              dtfreq = 'm')
 
-binoF = bt.tree(params = parsF, 
-                discdiv = [(1/12, 2)])
+binoF = tree(params = parsF, discdiv = [(1/12, 2)])
 ```
 
 ***
@@ -379,8 +273,7 @@ parsNonrec = dict(fname = 'nonrecTree',
                   vola = 0.30, r = 0.03,  
                   dtfreq = 'm')
 
-binoNonrec = bt.tree(params = parsNonrec, 
-                     discdiv = [(1/12, 2)], nonrec = True)
+binoNonrec = tree(params = parsNonrec, discdiv = [(1/12, 2)], nonrec = True)
 
 binoNonrec.write()
 ```
@@ -408,8 +301,7 @@ pars = dict(fname = 'myTree',
             vola = 0.30, r = 0.03, 
             dtfreq = 'm', rounding = 8)
 
-binoNormal = bt.tree(params = pars, 
-                     maketrees = ['ec', 'ep'])
+binoNormal = tree(params = pars, maketrees = ['ec', 'ep'])
 
 ec_ep_50periods = binoNormal(['ecOptionPrice', 'epOptionPrice'], periods = 50)  
 ```
@@ -434,3 +326,4 @@ Makes a list of the european call price.
 
 
 ***
+
