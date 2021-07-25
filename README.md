@@ -26,8 +26,7 @@ stock goes ex-div)
 
 ***
 
-# Installation and import
-### Installation
+## Installation
 The project can be installed from [pip](https://pypi.org/project/binotree/) with the command:  
 `pip install binotree`  
 
