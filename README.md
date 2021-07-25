@@ -141,7 +141,7 @@ treeObject.write()
 # File was made at: 'your/directory/here/NormalTree.xlsx
 ```
 The file should look something like this:  
-<img src="https://raw.githubusercontent.com/EHamre/optionsBinoTree/main/docs/images/excelDemo.png" width="75%" height="75%">  
+<img src="https://raw.githubusercontent.com/EHamre/optionsBinoTree/main/src/binotree/images/excelDemo.png" width="75%" height="75%">  
 (each option type is given its own sheet in the excel file)
 
 ***
@@ -256,12 +256,12 @@ binoNormal = bt.tree(params = parsNormal)
 
 ### Tree preview
 The binomial tree for the European Call is accessed by `binoNormal.ecTree`  
-<img src="https://raw.githubusercontent.com/EHamre/optionsBinoTree/main/docs/images/dfTreeDemo.png" width="65%" height="65%">
+<img src="https://raw.githubusercontent.com/EHamre/optionsBinoTree/main/src/binotree/images/dfTreeDemo.png" width="65%" height="65%">
 
 ### Callable tree
 In case your binomial tree is big and won't print neatly you can access each node by 
 calling the tree object with `up` and `down` passed:  
-<img src="https://raw.githubusercontent.com/EHamre/optionsBinoTree/main/docs/images/treeCall.png" width="50%" height="50%">
+<img src="https://raw.githubusercontent.com/EHamre/optionsBinoTree/main/src/binotree/images/treeCall.png" width="50%" height="50%">
 
 ### `write()` method
 typing `binoNormal.write()` in the console an Excel file will be generated. Either in the
@@ -273,7 +273,7 @@ binoNormal.write(fname_override = 'NEW_FILENAME',
 ```
 `File was made at: {your directory here}/NEW_FILENAME.xlsx`  
 \
-<img src="https://raw.githubusercontent.com/EHamre/optionsBinoTree/main/docs/images/excelDemo.png" width="75%" height="75%">
+<img src="https://raw.githubusercontent.com/EHamre/optionsBinoTree/main/src/binotree/images/excelDemo.png" width="75%" height="75%">
 
 ***
 
@@ -283,43 +283,43 @@ The plotting methods can take in keywords to alter the original parameters
 \
 **Plotting deltas w.r.t. current spot:**
 ### `binoNormal.ecPlotDeltas()`  
-<img src="https://raw.githubusercontent.com/EHamre/optionsBinoTree/main/docs/images/deltaPlotDemo.png" width="70%" height="60%">
+<img src="https://raw.githubusercontent.com/EHamre/optionsBinoTree/main/src/binotree/images/deltaPlotDemo.png" width="70%" height="60%">
 
 
 \
 Changing periods for plot to make it smoother:
 ### `binoNormal.ecPlotDeltas(periods = 30)`  
-<img src="https://raw.githubusercontent.com/EHamre/optionsBinoTree/main/docs/images/deltaPlotPeriodsDemo.png" width="70%" height="70%">
+<img src="https://raw.githubusercontent.com/EHamre/optionsBinoTree/main/src/binotree/images/deltaPlotPeriodsDemo.png" width="70%" height="70%">
 
 
 \
 **Plotting price w.r.t. current spot:**
 ### `binoNormal.ecPlotPrice()`  
-<img src="https://raw.githubusercontent.com/EHamre/optionsBinoTree/main/docs/images/pricePlotDemo.png" width="70%" height="70%">
+<img src="https://raw.githubusercontent.com/EHamre/optionsBinoTree/main/src/binotree/images/pricePlotDemo.png" width="70%" height="70%">
 
 
 \
 Changing strike for plot:
 ### `binoNormal.ecPlotPrice(strike = 40)`  
-<img src="https://raw.githubusercontent.com/EHamre/optionsBinoTree/main/docs/images/pricePlotStrikeDemo.png" width="70%" height="70%">
+<img src="https://raw.githubusercontent.com/EHamre/optionsBinoTree/main/src/binotree/images/pricePlotStrikeDemo.png" width="70%" height="70%">
 
 
 \
 **Plotting price w.r.t. periods used in binomial tree:**
 ### `binoNormal.ecPlotPeriods()`  
-<img src="https://raw.githubusercontent.com/EHamre/optionsBinoTree/main/docs/images/periodsPlotDemo.png" width="70%" height="70%">
+<img src="https://raw.githubusercontent.com/EHamre/optionsBinoTree/main/src/binotree/images/periodsPlotDemo.png" width="70%" height="70%">
 
 
 \
 **Plotting binomial spot tree with distribution of last period:**
 ### `binoNormal.plotSpots()`  
-<img src="https://raw.githubusercontent.com/EHamre/optionsBinoTree/main/docs/images/spotsPlotDemo.png" width="70%" height="70%">
+<img src="https://raw.githubusercontent.com/EHamre/optionsBinoTree/main/src/binotree/images/spotsPlotDemo.png" width="70%" height="70%">
 
 
 \
 Changing number of periods in tree (with `T` remaining the same)
 ### `binoNormal.plotSpots(periods = 30)`  
-<img src="https://raw.githubusercontent.com/EHamre/optionsBinoTree/main/docs/images/spotsPlot30Demo.png" width="70%" height="70%">
+<img src="https://raw.githubusercontent.com/EHamre/optionsBinoTree/main/src/binotree/images/spotsPlot30Demo.png" width="70%" height="70%">
 
 
 ***
@@ -340,7 +340,7 @@ binoNormal = bt.tree(params = parsNormal,
                      write = True # setting write to True makes an Excel file from construction
                      )
 ```  
-<img src="https://raw.githubusercontent.com/EHamre/optionsBinoTree/main/docs/images/excelPortDemo.png">  
+<img src="https://raw.githubusercontent.com/EHamre/optionsBinoTree/main/src/binotree/images/excelPortDemo.png">  
 **! The errors are to be fixed !** 
 
 ***
@@ -383,7 +383,7 @@ binoNonrec = bt.tree(params = parsNonrec,
 
 binoNonrec.write()
 ```
-<img src="https://raw.githubusercontent.com/EHamre/optionsBinoTree/main/docs/images/nonrecExcelDemo.png" width="85%" height="85%">  
+<img src="https://raw.githubusercontent.com/EHamre/optionsBinoTree/main/src/binotree/images/nonrecExcelDemo.png" width="85%" height="85%">  
 
 
 ***
