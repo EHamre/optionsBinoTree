@@ -121,7 +121,7 @@ treeObject.ecTree(up = 1, down = 0)
 ```
 
 ## Write to excel file
-Simply call the `write()` method to write to excel file. Pass the `dir` parameter 
+Simply call the `write()` method to write to excel file. Pass the `direc` parameter 
 in construction to specify directory 
 (if none is passed, the working directory is used).
 ```python
@@ -133,7 +133,7 @@ parameters = dict(fname = 'NormalTree',
                   T = 3/12, dt = 1/12, dtfreq = 'm',
                   vola = 0.30, r = 0.03)
 
-treeObject = bt.tree(params = parameters, dir = 'your/directory/here')
+treeObject = bt.tree(params = parameters, direc = 'your/directory/here')
 
 treeObject.write()
 
@@ -265,7 +265,7 @@ calling the tree object with `up` and `down` passed:
 
 ### `write()` method
 typing `binoNormal.write()` in the console an Excel file will be generated. Either in the
-current working directory, or passed directory through the `dir` parameter.  
+current working directory, or passed directory through the `direc` parameter.  
 The location of the file should be printed.  
 ```python
 binoNormal.write(fname_override = 'NEW_FILENAME',
